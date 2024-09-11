@@ -17,6 +17,21 @@ services:
       - resume-db
     networks: 
       - resume-builder-network
+  
+  resume-api:
+    image: resume-api:latest
+    build: 
+      context: ./resume-api
+      dockerfile: Dockerfile
+    container_name: resume-api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./resume-api:/var/www/html
+    # environment:
+    #   - NODE_ENV=development
+    env_file: 
+      - ./resume-api/.env
 
   resume-db: 
     platform: linux/x86_64
