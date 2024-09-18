@@ -28,26 +28,32 @@ services:
       - "3000:3000"
     volumes:
       - ./resume-api:/var/www/html
+      - /var/www/html/node_modules # Mount node_modules only in the container and only in case local node is different than container node
     # environment:
     #   - NODE_ENV=development
     env_file: 
       - ./resume-api/.env
 
   resume-db: 
-    platform: linux/x86_64
-    image: mysql:5.7
-    container_name: resume-db
-    env_file:
-      - ./resume-web/.env
+    # platform: linux/x86_64
+    # image: mysql:5.7
+    image: mongo
+    container_name: resume-dbx
+    #env_file:
+    #  - ./resume-web/.env
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: mtarique
+      MONGO_INITDB_ROOT_PASSWORD: mt7Database
+      #MYSQL_ROOT_PASSWORD: root
+      #MYSQL_DATABASE: ${DB_DATABASE}
+      #MYSQL_USER: ${DB_USERNAME}
+      #MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "3306:3306"
+      - "27017:27017"
+    #  - "3306:3306"
     volumes:
-      - resume-db-data:/var/lib/mysql
+      #- resume-db-data:/var/lib/mysql
+      - resume-db-data:/data/db
     networks: 
       - resume-builder-network
 
