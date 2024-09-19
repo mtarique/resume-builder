@@ -33,6 +33,8 @@ services:
     #   - NODE_ENV=development
     env_file: 
       - ./resume-api/.env
+    networks: 
+      - resume-builder-network
 
   resume-db: 
     # platform: linux/x86_64

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 exports.createCustomer = async (req, res) => {
     try {
         let customerData = req.body; 
+        console.log("PASSWORD ====> ", req); 
         let password = customerData.password; 
 
         if(!password) {
@@ -17,6 +18,7 @@ exports.createCustomer = async (req, res) => {
         await customer.save(); 
         res.status(201).json({status: true, message: "Customer account created", data: customer}); 
     } catch (error) {
+        console.log(error)
         res.status(400).json({status: false, message: "Customer account could not be created", data: error}); 
     }
 }
